@@ -1,18 +1,26 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonBehaviour : MonoBehaviour
 {
+    public Text Sex_Result_Text;
+    public Text Sex_Text;
+
     public Text Coat_Result_Text;
     public Text Coat_Type_Text;
     public Text FemaleDropdownCoat;
-    public Text FemaleDropdownFur;
     public Text MaleDropdownCoat;
-    public Text MaleDropdownFur;
+
+    public Text FemaleDropdownMane;
+    public Text MaleDropdownMane;
     public Text Mane_Result_Text;
     public Text Mane_Type_Text;
-    public Text Sex_Result_Text;
-    public Text Sex_Text;
+
+    public Text Fur_Result_Text;
+    public Text FemaleDropdownFur;
+    public Text MaleDropdownFur;
+    public Text Fur_Type_Text;
 
     public int RandomResult;
 
@@ -21,11 +29,76 @@ public class ButtonBehaviour : MonoBehaviour
         RollForCoat();
         RollForSex();
         RollForMane();
+        RollForFur();
+        RollForLitter();
+        RollForMutations();
+    }
+
+    private void RollForMutations()
+    {
+    }
+
+    private void RollForLitter()
+    {
+    }
+
+    public void RollForFur()
+    {
+        RandomResult = UnityEngine.Random.Range(1, 1001);
+
+        Fur_Result_Text.text = "Coat Type: " + RandomResult.ToString();
+
+        // 1 - 125         Heat/Leaf/Cold/Ocean
+        if (RandomResult <= 125)
+        {
+            Fur_Result_Text.text = "Heat/Leaf/Cold/Ocean";
+        }
+        //        126 - 250           Sand / Jade / Trunk / River
+        if (RandomResult >= 126 && RandomResult <= 250)
+        {
+            Fur_Result_Text.text = "Sand / Jade / Trunk / River";
+        }
+        //251 - 375   Amber / Shamrock / Earth / Steel     
+        if (RandomResult >= 251 && RandomResult <= 375)
+        {
+            Fur_Result_Text.text = "Amber / Shamrock / Earth / Steel";
+        }
+        //376 - 500            Sun / Lime / Granite / Mint
+        if (RandomResult >= 376 && RandomResult <= 500)
+        {
+            Fur_Result_Text.text = "Sun / Lime / Granite / Mint";
+        }
+        //501 - 725                            Mother
+        if (RandomResult >= 501 && RandomResult <= 725)
+        {
+            Fur_Result_Text.text = FemaleDropdownFur.text.ToString();
+        }
+        //726 - 950                            Father
+        if (RandomResult >= 726 && RandomResult <= 950)
+        {
+            Fur_Result_Text.text = MaleDropdownFur.text.ToString();
+        }
+        //951 - 990        Stone / Fungi / Kupfer / Berry
+        if (RandomResult >= 951 && RandomResult <= 990)
+        {
+            Fur_Result_Text.text = "Stone / Fungi / Kupfer / Berry";
+        }
+        //991 - 995   Pear / Caramel / Storm / Coal
+        if (RandomResult >= 991 && RandomResult <= 995)
+        {
+            Fur_Result_Text.text = "Pear / Caramel / Storm / Coal";
+        }
+        //996 - 1000           Fade / Ice / Pine / Blood
+        if (RandomResult >= 996 && RandomResult <= 1000)
+        {
+            Fur_Result_Text.text = "Fade / Ice / Pine / Blood";
+        }
+
     }
 
     public void RollForCoat()
     {
-        RandomResult = Random.Range(1, 1001);
+        RandomResult = UnityEngine.Random.Range(1, 1001);
 
         Coat_Type_Text.text = "Coat Type: " + RandomResult.ToString();
 
@@ -73,7 +146,7 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void RollForMane()
     {
-        RandomResult = Random.Range(1, 1001);
+        RandomResult = UnityEngine.Random.Range(1, 1001);
         Mane_Type_Text.text = "Coat Type: " + RandomResult.ToString();
 
         // 1 - 400         Standard
@@ -130,7 +203,7 @@ public class ButtonBehaviour : MonoBehaviour
 
     public void RollForSex()
     {
-        RandomResult = Random.Range(1, 1001);
+        RandomResult = UnityEngine.Random.Range(1, 1001);
         Sex_Text.text = "Sex: " + RandomResult;
 
         if (RandomResult <= 500)
