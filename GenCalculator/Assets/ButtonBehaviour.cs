@@ -1,12 +1,8 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ButtonBehaviour : MonoBehaviour
 {
-    public Text Sex_Result_Text;
-    public Text Sex_Text;
-
     public Text Coat_Result_Text;
     public Text Coat_Type_Text;
     public Text FemaleDropdownCoat;
@@ -22,16 +18,31 @@ public class ButtonBehaviour : MonoBehaviour
     public Text MaleDropdownFur;
     public Text Fur_Type_Text;
 
+    public Text Litter_Result_Text;
+    public Text Male_Result_Text;
+    public Text Female_Result_Text;
+    public Toggle Litter4;
+
     public int RandomResult;
 
-    public void OnClick_Roll()
+    public int LitterCounter;
+    public int MaleCounter;
+    public int FemaleCounter;
+
+    public void OnClick_RollDice()
     {
         RollForCoat();
-        RollForSex();
         RollForMane();
         RollForFur();
-        RollForLitter();
         RollForMutations();
+    }
+    public void OnClick_RollDiceForLitter()
+    {
+        LitterCounter = 0;
+        MaleCounter = 0;
+        FemaleCounter = 0;
+
+        RollForLitter();
     }
 
     private void RollForMutations()
@@ -40,13 +51,81 @@ public class ButtonBehaviour : MonoBehaviour
 
     private void RollForLitter()
     {
+
+        //        Litter Size:
+        //Normal Saliko | Tender Call Lv4
+        //1 - 333 | 1 - 225 | 1 Whelp
+        //334 - 666 | 226 - 500 | 2 Whelps
+        //667 - 1000 | 501 - 725 | 3 Whelps
+        //xxx - xxx | 726 - 1000 | 4 Whelps
+
+        RandomResult = UnityEngine.Random.Range(1, 1001);
+
+        if (Litter4 == Litter4.isOn)
+        {
+            #region
+            if (RandomResult <= 225)
+            {
+                RollForSex();
+                LitterCounter = 1;
+            }
+            if (RandomResult >= 226 && RandomResult <= 500)
+            {
+                RollForSex();
+                RollForSex();
+                LitterCounter = 2;
+            }
+            if (RandomResult >= 501 && RandomResult <= 725)
+            {
+                RollForSex();
+                RollForSex();
+                RollForSex();
+                LitterCounter = 3;
+            }
+            if (RandomResult >= 726 && RandomResult <= 1000)
+            {
+                RollForSex();
+                RollForSex();
+                RollForSex();
+                RollForSex();
+                LitterCounter = 4;
+            }
+            #endregion
+        }
+        else
+        {
+            #region
+            if (RandomResult <= 333)
+            {
+                RollForSex();
+                LitterCounter = 1;
+            }
+            if (RandomResult >= 334 && RandomResult <= 666)
+            {
+                RollForSex();
+                RollForSex();
+                LitterCounter = 2;
+            }
+            if (RandomResult >= 667 && RandomResult <= 1000)
+            {
+                RollForSex();
+                RollForSex();
+                RollForSex();
+                LitterCounter = 3;
+            }
+            #endregion
+        }
+
+        Litter_Result_Text.text = "whelp amount: " + LitterCounter;
+        Female_Result_Text.text = "female: " + FemaleCounter;
+        Male_Result_Text.text = "male: " + MaleCounter;
     }
 
     public void RollForFur()
     {
         RandomResult = UnityEngine.Random.Range(1, 1001);
 
-        Fur_Result_Text.text = "Coat Type: " + RandomResult.ToString();
+        Fur_Type_Text.text = "Fur Type: " + RandomResult.ToString();
 
         // 1 - 125         Heat/Leaf/Cold/Ocean
         if (RandomResult <= 125)
@@ -197,22 +276,21 @@ public class ButtonBehaviour : MonoBehaviour
         // 773 - 1000   Father
         if (RandomResult >= 773 && RandomResult <= 1000)
         {
-            Mane_Result_Text.text = MaleDropdownCoat.text.ToString(); ;
+            Mane_Result_Text.text = MaleDropdownCoat.text.ToString();
         }
     }
 
     public void RollForSex()
     {
         RandomResult = UnityEngine.Random.Range(1, 1001);
-        Sex_Text.text = "Sex: " + RandomResult;
 
         if (RandomResult <= 500)
         {
-            Sex_Result_Text.text = "Male";
+            MaleCounter++;
         }
         else
         {
-            Sex_Result_Text.text = "Female";
+            FemaleCounter++;
         }
     }
 }
